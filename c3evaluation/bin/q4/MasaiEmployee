@@ -1,0 +1,31 @@
+//creating tables
+
+create table MasaiEmployee
+(
+employee_id int primary key,
+name varchar(12),
+job_title varchar(15),
+reports_to int
+);
+
+//Inserting the values
+
+insert into MasaiEmployee values(1,'Arjun','vice president',null);
+
+insert into MasaiEmployee values(2,'Abhinav','IA',1);
+
+insert into MasaiEmployee values(3,'Shivam','IA',1);
+
+insert into MasaiEmployee values(4,'Rajasekar','IA',1);
+
+
+//To Show the Data in given format
+select name As employee_id, job_title As job_title,  "Arjun" as manager  from MasaiEmployee where reports_to = (select employee_id from MasaiEmployee where name = "Arjun");
+
++-------------+-----------+---------+
+| employee_id | job_title | manager |
++-------------+-----------+---------+
+| Abhinav     | IA        | Arjun   |
+| Shivam      | IA        | Arjun   |
+| Rajasekar   | IA        | Arjun   |
++-------------+-----------+---------+
