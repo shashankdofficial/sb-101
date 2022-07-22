@@ -1,0 +1,27 @@
+--> It is a specialized s/w written in java that performs translation of jpa calls into the sql call by 
+	using mapping annotation and configuration file details and send the mapped sql to the DB s/w using
+	JDBC.
+
+--> ORM engine is provided by any ORM s/w.
+any java application, that uses JPA api to perform persistnce operation (CRUD ) operation with 
+the DB s/w is called as JPA application.
+
+if we are using the annotaion, then we need not map this class with the table inside the xml mapping file.
+
+--an Entity class or persistence class is a java class that is developed corresponding to a table of DB.  
+
+--this class has many instance variables should be there as same as columns in the corresponding table
+
+--we should take Entity class as a POJO class.
+
+--we need to provide mapping information with the table in this class only using annotaitons.
+
+Note:- when we gives this persistance /Entity class obj to the ORM s/w, then ORM s/w will 
+decide the destination DB s/w based on the configuration done in a xml file which is called as hibernate-configuration file.
+
+
+
+Hibernate is an open source object relational mapping (ORM) tool that provides a framework to 
+map object-oriented domain models to relational databases for web applications.
+
+Object relational mapping is based on the containerization of objects and the abstraction that provides that capacity.

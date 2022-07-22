@@ -1,0 +1,176 @@
+//Cascade and MappedBy
+
+Employee.java:-
+==============
+
+	@Entity
+	public class Employee {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int empId;
+	private String name;
+	private int salary;
+	}
+
+Department.java:-
+===============
+
+	@Entity
+	public class Department {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int deptId;
+	private String dname;
+	private String location;
+	
+	@OneToMany
+	private List<Employee> emps=new ArrayList<Employee>();
+	
+	}
+
+Demo.java:-
+==========
+
+
+public class Demo {
+
+	public static void main(String[] args) {
+		
+	EntityManager em=EMUtil.provideEntityManager();
+		
+		
+	Employee emp1=new Employee();
+	emp1.setName("ram");
+	emp1.setSalary(8500);
+	
+	Employee emp2=new Employee();
+	emp2.setName("ramesh");
+	emp2.setSalary(7500);
+	
+	Department dept=new Department();
+	
+	dept.setDname("HR");
+	dept.setLocation("Kolkata");
+	
+	dept.getEmps().add(emp1);
+	dept.getEmps().add(emp2);
+	
+	
+	
+	em.getTransaction().begin();
+	
+	em.persist(emp1);
+	em.persist(emp2);
+	em.persist(dept);
+	
+	em.getTransaction().commit();
+	
+	em.close();
+	
+	System.out.println("done...");
+	
+	}
+}
+
+--with the above application, here for both the Entity classes 2 seperate tables will be created independently(they does not have info about each other.) , in addition to that one seperate linking table will be created which contains the PK of both the tables.
+
+this seperate table name and its column names are:-
+
+
+department_employee  :- table name
+	department_deptid  :- it reffers deptid of department table 
+	emps_empid;  :- it will reffers empid of employee table
+
+
+--in the above application we have saved first, all the child entity obj then we saved the parent entity obj.
+
+--but if we want that once we persist the parent obj, automatically all the child object also should be persisted, then we need to use cascading option:-
+
+ex:-
+
+
+	@OneToMany(cascade= CascadeType.ALL)
+	private List<Employee> emps=new ArrayList<Employee>();
+
+
+--we can change the 3rd generated table name as well as their column names also :-
+
+ex:-
+
+
+
+	@OneToMany(cascade= CascadeType.ALL)
+@JoinTable(name="dept_emp",joinColumns=@JoinColumn(name="did"),inverseJoinColumns=@JoinColumn(name="eid"))
+	private List<Employee> emps=new ArrayList<Employee>();
+	
+here the 3rd table name will become :- dept_emp;
+
+and both column names will be :-
+
+did(which reffers the PK of department table) and eid(which reffers PK of employee table)
+
+
+Note: - Department Entity class will take the help of this 3rd table to navigate the details of Employee Entity
+
+means that any change happened on DepartmentEntity must cascade to EmployeeEntity as well.
+
+
+
+//MappedBy
+
+--in order to generate only one linking table then we need to use mappedBy property here also(in any side).
+
+ex:-
+
+
+
+@Entity
+public class Department {
+	
+	@ManyToMany(cascade = CascadeType.ALL,mappedBy = "deptList")
+	List<Employee> empList = new ArrayList<>();;
+	
+}	
+
+
+
+
+--here Employee obj doing the mapping not the Department obj.
+so only one linking table will be created by name employee_department.
+
+
+
+--here also we can mention the JoinTable name and joinColumn names,inverseColumn name ,this should be inside the Employee class.
+
+
+ex:-
+
+@Entity
+public class Employee {
+
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "emp_dept", joinColumns = @JoinColumn(name="empid"),inverseJoinColumns = @JoinColumn(name="deptid") )
+	private List<Department> depts;
+	
+}
+
+
+
+Navigating from emp to dept:-
+-----------------------------
+
+		List<Department> dlist =em.find(Employee.class, 2).getDeptList();
+		
+		System.out.println(dlist);
+		
+		
+Navigating from dept to emp:-
+------------------------------------
+		
+
+		List<Employee> dlist =em.find(Department.class, 1).getEmpList();
+		
+		System.out.println(dlist);

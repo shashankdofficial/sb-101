@@ -2,7 +2,6 @@ package q1;
 
 import java.util.List;
 
-import q1.bean.Employee;
 import q1.exception.EmployeeException;
 
 public class EmployeeDao {

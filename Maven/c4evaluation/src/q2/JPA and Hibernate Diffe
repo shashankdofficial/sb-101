@@ -1,0 +1,17 @@
+JPA:-
+====
+
+JPA is only a specification, it is not an implementation.
+It is a set of rules to set interfaces for implementing object relation mapping, .
+It needs a few classes and interfaces.
+It supports simple, cleaner, and assimilated object-relational mapping.
+It supports polymorphism and inheritance.
+Dynamic and named queries can be included in JPA.
+
+
+Hibernate:-
+==========
+
+Hibernate is an implementation of JPA guidelines.
+It helps in mapping Java data types to SQL data types.
+It is the contributor of JPA.

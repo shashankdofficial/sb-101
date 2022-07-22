@@ -1,0 +1,82 @@
+Lazy loading is a design pattern commonly used to defer initialization of an object 
+	until the point at which it is needed.
+	It can contribute to efficiency in the program's operation if properly and appropriately used.
+	
+	While lazy loading delays the initialization of a resource, eager loading initializes or loads
+	a resource as soon as the code is executed. Eager loading also involves pre-loading related 
+	entities referenced by a resource.
+	
+	Eager loading is beneficial when there is an opportunity or need to load resources in the background.
+	
+
+package q1;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+
+//eager Class handling
+/*
+@Entity
+public class Student {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int eid;
+	private String sname;
+	private int marks;
+	
+	@ElementCollection(fetch=FetchType.EAGER)
+	@Embedded
+	@JoinTable(name="stdaddress",joinColumns=@JoinColumn(name="std_id"))
+	private Set<Address> addresses=new HashSet<Address>();
+	
+}
+*/
+
+/*
+ public class Demo {
+	
+	public static void main(String[] args) {
+		
+		EntityManager em= EMUtil.provideEntityManager();
+		
+		
+ 		Student std= em.find(Student.class, 10);
+ 		
+ 		em.close();  // even though before closing the EM obj we got the Employee obj
+		//here only Student related obj will be loaded ,address obj data will be not be loaded
+			//so while fetching the address related data we will get an exception
+		
+ 		System.out.println(std.getsid());
+ 		System.out.println(std.getSname());
+ 		System.out.println(std.getMarks());
+ 		
+ 		System.out.println("All Address are:-");
+ 		
+ 		System.out.println("===========================");
+ 		Set<Address> addreses= std.getAddresses();
+ 		
+ 		for(Address ad:addreses){
+ 			System.out.println("city :"+ad.getCity());
+ 			System.out.println("state :"+ad.getState());
+ 			System.out.println("Pincode :"+ad.getPincode());
+ 			
+ 			System.out.println("***************************");
+ 		}
+		
+		System.out.println("done...");
+	}
+
+}
+ */
+

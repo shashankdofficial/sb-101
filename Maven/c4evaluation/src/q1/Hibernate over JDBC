@@ -1,0 +1,7 @@
+
+1. Hibernate code can work with all currently available databases., 
+for example;- Oracle,MySQL, etc.
+2. No much knowledge needed to know SQL queries because of hibernate becausse it work ob object model.
+3. Hibernate takes care of the mapping using .xml files.
+4. Hibernate is a database independent language.
+5. Hibernate reduces the boilerplate code.
